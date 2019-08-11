@@ -21,4 +21,7 @@ USB_TRANSMISSION_PROBABILITY = 0.1
 LOCAL_NETWORK_TRANSMISSION_PROBABILITY = 0.2
 
 # The probability, for each wave, that you will get infected with Stuxnet's Windows autoupdate hack
-WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY = .1
+WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY = 0.1
+
+# The number of computers stuxnet can infect before it turns itself off
+INFECTION_LIMIT = 3
