@@ -1,6 +1,6 @@
 import numpy.random as random
 
-def __value_from_normal_curve(average, min = None):
+def __value_from_normal_curve(average, min=None):
 	normal = random.normal(average)
 	return normal if min is None else max(min, normal)
 
