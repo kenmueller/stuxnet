@@ -56,8 +56,8 @@ WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY = 0.5
 # The number of milliseconds a wave is
 WAVE_DURATION = 86400000
 
-# The number of computers stuxnet can infect before it turns itself off
-INFECTION_LIMIT = 3
-
 # The number of milliseconds until stuxnet self destructs
 INFECTION_DURATION = 94608000000
+
+# The number of computers stuxnet can infect before it turns itself off
+INFECTION_LIMIT = 3
