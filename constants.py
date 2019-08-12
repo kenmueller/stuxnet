@@ -4,26 +4,26 @@ def __value_from_normal_curve(average, min=None):
 	normal = random.normal(average)
 	return normal if min is None else max(min, normal)
 
-# Network structure
+def __int_from_normal_curve(average, min=None):
+	return round(__value_from_normal_curve(average, min))
 
-# Total number of big networks
-NUMBER_OF_BIG_NETWORKS = 25
+# Network structure
 
 def USB_DRIVE_SHARING_NETWORK_SIZE():
 	"""Number of computers a single usb drive will be plugged in to"""
-	return __value_from_normal_curve(5, 0)
+	return __int_from_normal_curve(5, 0)
 
 def LOCAL_WIRED_NETWORK_SIZE():
 	"""Number of computers in a single wired network (Ethernet)"""
-	return __value_from_normal_curve(10, 0)
+	return __int_from_normal_curve(10, 0)
 
 def LOCAL_WIRELESS_NETWORK_SIZE():
 	"""Number of computers in a single wireless network"""
-	return __value_from_normal_curve(30, 0)
+	return __int_from_normal_curve(30, 0)
 
-def NUMBER_OF_LOCAL_NETWORKS_IN_BIG_NETWORK():
-	"""Number of local networks contained in a single "big" network"""
-	return __value_from_normal_curve(3, 0)
+def NUMBER_OF_LOCAL_NETWORKS():
+	"""Total number of local networks"""
+	return __int_from_normal_curve(3, 0)
 
 # Transmission probabilities
 
