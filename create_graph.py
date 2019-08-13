@@ -3,10 +3,10 @@ from numpy.random import normal
 from constants import *
 from EdgeType import EdgeType
 
-def network_size_for_edge_type(edge_type):
+def network_size_for_edge_type(edge_type: int):
 	return max(0, round(normal(NETWORK_SIZES[edge_type])))
 
-def add_network(graph, edge_type, num):
+def add_network(graph: nx.Graph, edge_type: int, num: int):
 	graph.add_edges_from([(num, (num, i)) for i in range(network_size_for_edge_type(edge_type))], edge_type=edge_type)
 
 def create_graph():
