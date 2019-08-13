@@ -1,3 +1,6 @@
 import networkx as nx
-from constants import *
+import matplotlib.pyplot as plt
+from create_graph import create_graph
 
+nx.draw(create_graph(), with_labels=True)
+plt.show()
