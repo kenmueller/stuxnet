@@ -1,8 +1,8 @@
-import numpy.random as random
+from numpy.random import normal
 
 def __value_from_normal_curve(average, min=None):
-	normal = random.normal(average)
-	return normal if min is None else max(min, normal)
+	value = normal(average)
+	return value if min is None else max(min, value)
 
 def __int_from_normal_curve(average, min=None):
 	return round(__value_from_normal_curve(average, min))
