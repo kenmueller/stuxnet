@@ -1,5 +1,7 @@
-from enum import Enum
+from enum import Enum, unique, auto
 
+@unique
 class EdgeType(Enum):
-	local_wired_network = 1
-	local_wireless_network = 2
+	LOCAL_WIRED = auto()
+	LOCAL_WIRELESS = auto()
+	USB_SHARED = auto()
