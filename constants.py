@@ -1,29 +1,16 @@
-from numpy.random import normal
-
-def __value_from_normal_curve(average, min=None):
-	value = normal(average)
-	return value if min is None else max(min, value)
-
-def __int_from_normal_curve(average, min=None):
-	return round(__value_from_normal_curve(average, min))
+from EdgeType import EdgeType
 
 # Network structure
 
-def USB_DRIVE_SHARING_NETWORK_SIZE():
-	"""Number of computers a single usb drive will be plugged in to"""
-	return __int_from_normal_curve(5, 0)
+NETWORK_SIZES = {
+	EdgeType.LOCAL_WIRED: 6.5,
+	EdgeType.LOCAL_WIRELESS: 8.1,
+	EdgeType.USB_SHARED: 4.1
+}
 
-def LOCAL_WIRED_NETWORK_SIZE():
-	"""Number of computers in a single wired network (Ethernet)"""
-	return __int_from_normal_curve(10, 0)
+NUMBER_OF_LOCAL_WIRED_NETWORKS = 10
 
-def LOCAL_WIRELESS_NETWORK_SIZE():
-	"""Number of computers in a single wireless network"""
-	return __int_from_normal_curve(30, 0)
-
-def NUMBER_OF_LOCAL_NETWORKS():
-	"""Total number of local networks"""
-	return __int_from_normal_curve(3, 0)
+NUMBER_OF_LOCAL_WIRELESS_NETWORKS = 20
 
 # Transmission probabilities
 
