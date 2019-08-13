@@ -15,6 +15,9 @@ NUMBER_OF_LOCAL_WIRED_NETWORKS = 10
 # Total number of local wireless networks
 NUMBER_OF_LOCAL_WIRELESS_NETWORKS = 20
 
+# Total number of USB sharing networks
+NUMBER_OF_USB_SHARING_NETWORKS = 30
+
 # Transmission probabilities
 
 # The probability, for each wave, that an infected computer will infect its neighbor via USB
