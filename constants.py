@@ -2,14 +2,17 @@ from edge_type import EdgeType
 
 # Network structure
 
+# Network sizes for edge types
 NETWORK_SIZES = {
 	EdgeType.LOCAL_WIRED: 6.5,
 	EdgeType.LOCAL_WIRELESS: 8.1,
 	EdgeType.USB_SHARED: 4.1
 }
 
+# Total number of local wired networks
 NUMBER_OF_LOCAL_WIRED_NETWORKS = 10
 
+# Total number of local wireless networks
 NUMBER_OF_LOCAL_WIRELESS_NETWORKS = 20
 
 # Transmission probabilities
