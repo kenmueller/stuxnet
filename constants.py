@@ -1,4 +1,4 @@
-from EdgeType import EdgeType
+from edge_type import EdgeType
 
 # Network structure
 

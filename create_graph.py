@@ -1,7 +1,7 @@
 import networkx as nx
 from numpy.random import normal
 from constants import *
-from EdgeType import EdgeType
+from edge_type import EdgeType
 
 NUMBER_OF_LOCAL_WIRED_AND_WIRELESS_NETWORKS = NUMBER_OF_LOCAL_WIRED_NETWORKS + NUMBER_OF_LOCAL_WIRELESS_NETWORKS
 
