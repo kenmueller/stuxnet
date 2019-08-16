@@ -6,7 +6,11 @@ from edge_type import EdgeType
 NETWORK_SIZES = {
 	EdgeType.LOCAL_WIRED: 6.5,
 	EdgeType.LOCAL_WIRELESS: 8.1,
-	EdgeType.USB_SHARED: 4.1
+	EdgeType.USB_SHARED: {
+		NETWORKS: 2,
+		NODES_IN_NETWORK: 2,
+		DISCONNECTED: 1.5
+	}
 }
 
 # Total number of local wired networks
