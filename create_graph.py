@@ -3,6 +3,7 @@ from numpy.random import normal
 from random import sample
 from constants import *
 from edge_type import EdgeType
+from node_type import NodeType
 
 NUMBER_OF_LOCAL_NETWORKS = NUMBER_OF_LOCAL_WIRED_NETWORKS + NUMBER_OF_LOCAL_WIRELESS_NETWORKS
 USB_SHARED_NETWORK_SIZES = NETWORK_SIZES[EdgeType.USB_SHARED]
@@ -17,8 +18,15 @@ def network_size_for_edge_type(edge_type: EdgeType) -> int:
 
 def add_computer_nodes(graph: nx.Graph, edge_type: EdgeType, router_node: int):
 	"""Adds computer nodes from a router node to a graph"""
+	# Get the network size for the edge type and create a range
+	network_size_range = range(network_size_for_edge_type(edge_type))
+
 	# Add edges from the router node to all of the computer nodes labeled (router node, computer node)
-	graph.add_edges_from([(router_node, (router_node, computer_node)) for computer_node in range(network_size_for_edge_type(edge_type))], edge_type=edge_type)
+	graph.add_edges_from([(router_node, (router_node, computer_node)) for computer_node in network_size_range], edge_type=edge_type)
+
+	# Set node attributes for all the computer nodes
+	for computer_node in network_size_range:
+		nx.set_node_attributes(graph, { (router_node, computer_node): { 'node_type': NodeType.COMPUTER } })
 
 def create_graph() -> nx.Graph:
 	"""Creates a graph for Stuxnet to infect"""
@@ -54,12 +62,25 @@ def create_graph() -> nx.Graph:
 
 		# Get the number of disconnected computers a USB drive should infect, normalize it, and make sure it's positive
 		for disconnected_computer_node in range(bound_normal(USB_SHARED_NETWORK_SIZES['NUMBER_OF_DISCONNECTED_COMPUTERS'])):
+			# The label that the disconnected computer node should have on the graph
+			disconnected_computer_node_label = f'disconnected-{disconnected_computer_node}'
+
 			# Add an edge with an edge type of USB_SHARED between the USB node and the disconnected computer, creating a
 			# new disconnected computer if needed. 
-			graph.add_edge(usb_node_label, f'disconnected-{disconnected_computer_node}', edge_type=EdgeType.USB_SHARED)
+			graph.add_edge(usb_node_label, disconnected_computer_node_label, edge_type=EdgeType.USB_SHARED)
+
+			# Set the node type of the new disconnected computer node
+			nx.set_node_attributes(graph, { disconnected_computer_node_label: { 'node_type': NodeType.DISCONNECTED_COMPUTER } })
+
+		# Set the node type for the USB node
+		nx.set_node_attributes(graph, { usb_node_label: { 'node_type': NodeType.USB } })
 
 	# Connect all the router nodes to a singular node in the middle of the graph
 	for router_node in range(NUMBER_OF_LOCAL_NETWORKS):
-		graph.add_edge(router_node, NUMBER_OF_LOCAL_NETWORKS)
+		graph.add_edge(router_node, NUMBER_OF_LOCAL_NETWORKS, edge_type=EdgeType.MAIN_TO_ROUTER)
+		nx.set_node_attributes(graph, { router_node: { 'node_type': NodeType.ROUTER } })
+	
+	# Set the node type for the main node
+	nx.set_node_attributes(graph, { NUMBER_OF_LOCAL_NETWORKS: { 'node_type': NodeType.MAIN } })
 
 	return graph

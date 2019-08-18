@@ -5,3 +5,4 @@ class EdgeType(Enum):
 	LOCAL_WIRED = auto()
 	LOCAL_WIRELESS = auto()
 	USB_SHARED = auto()
+	MAIN_TO_ROUTER = auto()
