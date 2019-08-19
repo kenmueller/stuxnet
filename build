@@ -1,0 +1,8 @@
+rm -rf lib
+mkdir lib
+cd src
+for path in $(find . -name '*.py')
+do
+	pyminify "$path" > "../lib/${path#*/}"
+done
+cd ..
