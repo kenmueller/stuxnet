@@ -9,3 +9,6 @@ def set_node_infected(graph: nx.Graph, node, infected: bool):
 
 def get_node_type(graph: nx.Graph, node) -> NodeType:
 	return graph.node[node]['node_type']
+
+def set_node_type(graph: nx.Graph, node, node_type: NodeType):
+	graph.node[node]['node_type'] = node_type

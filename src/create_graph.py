@@ -4,7 +4,7 @@ from random import sample
 from constants import *
 from edge_type import EdgeType
 from node_type import NodeType
-from node import set_node_infected, get_node_type
+from node import set_node_infected, get_node_type, set_node_type
 
 NUMBER_OF_LOCAL_NETWORKS = NUMBER_OF_LOCAL_WIRED_NETWORKS + NUMBER_OF_LOCAL_WIRELESS_NETWORKS
 USB_SHARED_NETWORK_SIZES = NETWORK_SIZES[EdgeType.USB_SHARED]
@@ -27,7 +27,7 @@ def add_computer_nodes(graph: nx.Graph, edge_type: EdgeType, router_node: int):
 
 	# Set node attributes for all the computer nodes
 	for computer_node in network_size_range:
-		graph.node[router_node, computer_node]['node_type'] = NodeType.COMPUTER
+		set_node_type(graph, (router_node, computer_node), NodeType.COMPUTER)
 
 def create_graph() -> nx.Graph:
 	"""Creates a graph for Stuxnet to infect"""
@@ -71,7 +71,7 @@ def create_graph() -> nx.Graph:
 			graph.add_edge(usb_node_label, disconnected_computer_node_label, edge_type=EdgeType.USB_SHARED)
 
 			# Set the node type of the new disconnected computer node
-			graph.node[disconnected_computer_node_label]['node_type'] = NodeType.DISCONNECTED_COMPUTER
+			set_node_type(graph, disconnected_computer_node_label, NodeType.DISCONNECTED_COMPUTER)
 
 		# Get a sample of all the valid nodes for the USB node to connect to if it has less than 2 neighbors
 		sample_valid_nodes = lambda count: sample(list(filter(lambda node: graph.node.get(node) and get_node_type(graph, node) != NodeType.ROUTER, graph.nodes)), count)
@@ -87,7 +87,7 @@ def create_graph() -> nx.Graph:
 			graph.add_edges_from([(usb_node_label, node) for node in sample_valid_nodes(2)], edge_type=EdgeType.USB_SHARED)
 
 		# Set the node type for the USB node
-		graph.node[usb_node_label]['node_type'] = NodeType.USB
+		set_node_type(graph, usb_node_label, NodeType.USB)
 	
 	# Get a sample of all the USB nodes, and infect all the nodes that should be initially infected
 	for usb_node in sample(range(NUMBER_OF_USB_SHARING_NETWORKS), NUMBER_OF_INITIAL_USB_NODES_INFECTED):
@@ -96,9 +96,9 @@ def create_graph() -> nx.Graph:
 	# Connect all the router nodes to a singular node in the middle of the graph
 	for router_node in range(NUMBER_OF_LOCAL_NETWORKS):
 		graph.add_edge(router_node, NUMBER_OF_LOCAL_NETWORKS, edge_type=EdgeType.MAIN_TO_ROUTER)
-		graph.node[router_node]['node_type'] = NodeType.ROUTER
+		set_node_type(graph, router_node, NodeType.ROUTER)
 	
 	# Set the node type for the main node
-	graph.node[NUMBER_OF_LOCAL_NETWORKS]['node_type'] = NodeType.MAIN
+	set_node_type(graph, NUMBER_OF_LOCAL_NETWORKS, NodeType.MAIN)
 
 	return graph
