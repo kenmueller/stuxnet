@@ -4,7 +4,7 @@ from random import sample
 from constants import *
 from edge_type import EdgeType
 from node_type import NodeType
-from node import set_node_infected
+from node import set_node_infected, get_node_type
 
 NUMBER_OF_LOCAL_NETWORKS = NUMBER_OF_LOCAL_WIRED_NETWORKS + NUMBER_OF_LOCAL_WIRELESS_NETWORKS
 USB_SHARED_NETWORK_SIZES = NETWORK_SIZES[EdgeType.USB_SHARED]
@@ -72,6 +72,19 @@ def create_graph() -> nx.Graph:
 
 			# Set the node type of the new disconnected computer node
 			graph.node[disconnected_computer_node_label]['node_type'] = NodeType.DISCONNECTED_COMPUTER
+
+		# Get a sample of all the valid nodes for the USB node to connect to if it has less than 2 neighbors
+		sample_valid_nodes = lambda count: sample(list(filter(lambda node: graph.node.get(node) and get_node_type(graph, node) != NodeType.ROUTER, graph.nodes)), count)
+
+		# Check if the USB node exists
+		if graph.adj.get(usb_node_label):
+			# The USB node exists, now we're checking if it only has 1 neighbor
+			if len(graph[usb_node_label]) == 1:
+				# We now add the other neighbor to the USB node since it previously only had 1 neighbor
+				graph.add_edge(usb_node_label, sample_valid_nodes(1)[0], edge_type=EdgeType.USB_SHARED)
+		else:
+			# The USB node doesn't exist, so we add 2 connections to other nodes
+			graph.add_edges_from([(usb_node_label, node) for node in sample_valid_nodes(2)], edge_type=EdgeType.USB_SHARED)
 
 		# Set the node type for the USB node
 		graph.node[usb_node_label]['node_type'] = NodeType.USB
