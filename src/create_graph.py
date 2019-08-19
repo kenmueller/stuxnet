@@ -27,7 +27,7 @@ def add_computer_nodes(graph: nx.Graph, edge_type: EdgeType, router_node: int):
 
 	# Set node attributes for all the computer nodes
 	for computer_node in network_size_range:
-		nx.set_node_attributes(graph, { (router_node, computer_node): { 'node_type': NodeType.COMPUTER } })
+		graph.node[router_node, computer_node]['node_type'] = NodeType.COMPUTER
 
 def create_graph() -> nx.Graph:
 	"""Creates a graph for Stuxnet to infect"""
@@ -71,10 +71,10 @@ def create_graph() -> nx.Graph:
 			graph.add_edge(usb_node_label, disconnected_computer_node_label, edge_type=EdgeType.USB_SHARED)
 
 			# Set the node type of the new disconnected computer node
-			nx.set_node_attributes(graph, { disconnected_computer_node_label: { 'node_type': NodeType.DISCONNECTED_COMPUTER } })
+			graph.node[disconnected_computer_node_label]['node_type'] = NodeType.DISCONNECTED_COMPUTER
 
 		# Set the node type for the USB node
-		nx.set_node_attributes(graph, { usb_node_label: { 'node_type': NodeType.USB } })
+		graph.node[usb_node_label]['node_type'] = NodeType.USB
 	
 	# Get a sample of all the USB nodes, and infect all the nodes that should be initially infected
 	for usb_node in sample(range(NUMBER_OF_USB_SHARING_NETWORKS), NUMBER_OF_INITIAL_USB_NODES_INFECTED):
@@ -83,9 +83,9 @@ def create_graph() -> nx.Graph:
 	# Connect all the router nodes to a singular node in the middle of the graph
 	for router_node in range(NUMBER_OF_LOCAL_NETWORKS):
 		graph.add_edge(router_node, NUMBER_OF_LOCAL_NETWORKS, edge_type=EdgeType.MAIN_TO_ROUTER)
-		nx.set_node_attributes(graph, { router_node: { 'node_type': NodeType.ROUTER } })
+		graph.node[router_node]['node_type'] = NodeType.ROUTER
 	
 	# Set the node type for the main node
-	nx.set_node_attributes(graph, { NUMBER_OF_LOCAL_NETWORKS: { 'node_type': NodeType.MAIN } })
+	graph.node[NUMBER_OF_LOCAL_NETWORKS]['node_type'] = NodeType.MAIN
 
 	return graph
