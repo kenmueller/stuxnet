@@ -1,7 +1,8 @@
 import networkx as nx
 from random import sample, randint
 from math import sqrt
+from node import is_node_infected, set_node_infected
 
 def new_wave(graph: nx.Graph):
-	for node in sample(graph.nodes, randint(0, int(sqrt(graph.number_of_nodes())))):
-		nx.set_node_attributes(graph, { node: { 'infected': True } })
+	for node in filter(lambda node: is_node_infected(graph, node), graph.nodes):
+		pass
