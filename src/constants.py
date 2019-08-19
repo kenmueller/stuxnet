@@ -46,7 +46,7 @@ WINCC_TRANSMISSION_PROBABILITY = 0.5
 # The probability, for each wave, that an infected computer will infect its neighbor via SMB
 SMB_TRANSMISSION_PROBABILITY = 0.5
 
-# Wired and wireless local network edge type 
+# Wired and wireless local network edge type
 
 # The probability, for each wave, that an infected computer will infect its neighbor via a network share
 NETWORK_SHARES_TRANSMISSION_PROBABILITY = 0.5
