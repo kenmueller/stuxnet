@@ -12,7 +12,12 @@ def new_wave(graph: nx.Graph):
 	for node in filter(lambda node: is_node_infected(graph, node), graph.nodes):
 		for neighbor_node, edge_data in graph.adj[node].items():
 			edge_type = edge_data['edge_type']
-			if edge_type == EdgeType.LOCAL_WIRED and (should_infect_node_with_probability(PRINT_SPOOLER_TRANSMISSION_PROBABILITY) or should_infect_node_with_probability(WINCC_TRANSMISSION_PROBABILITY) or should_infect_node_with_probability(SMB_TRANSMISSION_PROBABILITY) or should_infect_node_with_probability(NETWORK_SHARES_TRANSMISSION_PROBABILITY)):
+			if edge_type == EdgeType.LOCAL_WIRED and (
+				should_infect_node_with_probability(PRINT_SPOOLER_TRANSMISSION_PROBABILITY) or \
+				should_infect_node_with_probability(WINCC_TRANSMISSION_PROBABILITY) or \
+				should_infect_node_with_probability(SMB_TRANSMISSION_PROBABILITY) or \
+				should_infect_node_with_probability(NETWORK_SHARES_TRANSMISSION_PROBABILITY)
+			):
 				set_node_infected(graph, neighbor_node, True)
 			elif edge_type == EdgeType.LOCAL_WIRELESS and should_infect_node_with_probability(NETWORK_SHARES_TRANSMISSION_PROBABILITY):
 				set_node_infected(graph, neighbor_node, True)
