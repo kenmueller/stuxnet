@@ -24,6 +24,8 @@ NUMBER_OF_USB_SHARING_NETWORKS = 30
 
 # Transmission probabilities
 
+# USB edge type
+
 # The probability, for each wave, that an infected computer will infect its neighbor via USB
 USB_TRANSMISSION_PROBABILITY = 0.1
 
@@ -33,17 +35,21 @@ LNK_TRANSMISSION_PROBABILITY = 0.5
 # The probability, for each wave, that an infected computer will infect its neighbor via autorun vulnerability
 AUTORUN_TRANSMISSION_PROBABILITY = 0.5
 
+# Wired local network edge type
+
 # The probability, for each wave, that an infected computer will infect its neighbor via print spooler vulnerability
 PRINT_SPOOLER_TRANSMISSION_PROBABILITY = 0.5
 
 # The probability, for each wave, that an infected computer will infect its neighbor via WinCC
 WINCC_TRANSMISSION_PROBABILITY = 0.5
 
-# The probability, for each wave, that an infected computer will infect its neighbor via a network share
-NETWORK_SHARES_TRANSMISSION_PROBABILITY = 0.5
-
 # The probability, for each wave, that an infected computer will infect its neighbor via SMB
 SMB_TRANSMISSION_PROBABILITY = 0.5
+
+# Wired and wireless local network edge type 
+
+# The probability, for each wave, that an infected computer will infect its neighbor via a network share
+NETWORK_SHARES_TRANSMISSION_PROBABILITY = 0.5
 
 # The probability, for each wave, that a given computer will get infected from a windows auto update
 WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY = 0.5

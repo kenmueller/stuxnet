@@ -8,7 +8,7 @@ from node import is_node_infected
 INFECTED_NODE_COLOR = 'red'
 NOT_INFECTED_NODE_COLOR = 'green'
 
-def draw_graph(graph: nx.Graph, colors: [str] = None, **kwargs):
+def draw_graph(graph: nx.Graph, colors: list = None, **kwargs):
 	nx.draw(graph, node_color=colors, with_labels=True)
 	plt.show(**kwargs)
 
