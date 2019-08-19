@@ -58,3 +58,6 @@ INFECTION_DURATION = 94608000000
 
 # The number of computers stuxnet can infect before it turns itself off
 INFECTION_LIMIT = 3
+
+# Number of initial USB nodes infected. Should be less than the number of USB sharing networks
+NUMBER_OF_INITIAL_USB_NODES_INFECTED = 10

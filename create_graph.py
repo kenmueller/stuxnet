@@ -4,6 +4,7 @@ from random import sample
 from constants import *
 from edge_type import EdgeType
 from node_type import NodeType
+from node import set_node_infected
 
 NUMBER_OF_LOCAL_NETWORKS = NUMBER_OF_LOCAL_WIRED_NETWORKS + NUMBER_OF_LOCAL_WIRELESS_NETWORKS
 USB_SHARED_NETWORK_SIZES = NETWORK_SIZES[EdgeType.USB_SHARED]
@@ -74,6 +75,10 @@ def create_graph() -> nx.Graph:
 
 		# Set the node type for the USB node
 		nx.set_node_attributes(graph, { usb_node_label: { 'node_type': NodeType.USB } })
+	
+	# Get a sample of all the USB nodes, and infect all the nodes that should be initially infected
+	for usb_node in sample(range(NUMBER_OF_USB_SHARING_NETWORKS), NUMBER_OF_INITIAL_USB_NODES_INFECTED):
+		set_node_infected(graph, f'usb-{usb_node}', True)
 
 	# Connect all the router nodes to a singular node in the middle of the graph
 	for router_node in range(NUMBER_OF_LOCAL_NETWORKS):
