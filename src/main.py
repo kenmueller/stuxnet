@@ -47,7 +47,7 @@ if __name__ == '__main__':
 		log = add_line_to_log(log, f'\n# **Wave {wave + 1}**\n\n## **Actions**', extra_newline=True)
 		log = new_wave(graph, log)
 		new_infected_attributes = node_infected_attributes(graph)
-		log = add_line_to_log(log, f'\n## **Summary**', extra_newline=True)
+		log = add_line_to_log(log, f'\n## **Wave {wave + 1} summary**', extra_newline=True)
 		log = add_line_to_log(log, f'- **Computer nodes infected:** +{new_infected_attributes[NodeType.COMPUTER] - old_infected_attributes[NodeType.COMPUTER]}, {new_infected_attributes[NodeType.COMPUTER]}/{total_attributes[NodeType.COMPUTER]} total')
 		log = add_line_to_log(log, f'- **Disconnected computer nodes infected:** +{new_infected_attributes[NodeType.DISCONNECTED_COMPUTER] - old_infected_attributes[NodeType.DISCONNECTED_COMPUTER]}, {new_infected_attributes[NodeType.DISCONNECTED_COMPUTER]}/{total_attributes[NodeType.DISCONNECTED_COMPUTER]} total')
 		log = add_line_to_log(log, f'- **USB nodes infected:** +{new_infected_attributes[NodeType.USB] - old_infected_attributes[NodeType.USB]}, {new_infected_attributes[NodeType.USB]}/{total_attributes[NodeType.USB]} total')
