@@ -20,7 +20,7 @@ def new_wave(graph: nx.Graph, log: str) -> str:
 			edge_type = edge_data['edge_type']
 			def infect_neighbor_node(log: str, message: str):
 				set_node_infected(graph, neighbor_node, True)
-				return add_line_to_log(log, f'1. **{neighbor_node}** was infected by **{node}** using the **{message}**')
+				return add_line_to_log(log, f'1. **`{neighbor_node}`** was infected by **`{node}`** using the **{message}**')
 			if edge_type == EdgeType.LOCAL_WIRED:
 				if should_infect_node_with_probability(PRINT_SPOOLER_TRANSMISSION_PROBABILITY):
 					log = infect_neighbor_node(log, 'print spooler vulnerability')
@@ -43,9 +43,9 @@ def new_wave(graph: nx.Graph, log: str) -> str:
 			elif edge_type == EdgeType.LOCAL_WIRED or edge_type == EdgeType.LOCAL_WIRELESS:
 				if should_infect_node_with_probability(WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY):
 					graph.node[neighbor_node]['pending_windows_auto_update_infection'] = True
-					log = add_line_to_log(log, f'1. **{neighbor_node}** was given the **Windows auto update virus** by **{node}**')
+					log = add_line_to_log(log, f'1. **`{neighbor_node}`** was given the **Windows auto update virus** by **`{node}`**')
 	for node in pending_windows_auto_update_infection_nodes:
 		set_node_infected(graph, node, True)
 		graph.node[node].pop('pending_windows_auto_update_infection')
-		log = add_line_to_log(log, f'1. **{node}** was infected by the **Windows auto update vulnerability**')
+		log = add_line_to_log(log, f'1. **`{node}`** was infected by the **Windows auto update vulnerability**')
 	return log
