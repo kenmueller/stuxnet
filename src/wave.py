@@ -20,9 +20,9 @@ def new_wave(graph: nx.Graph, log: str) -> str:
 			edge_type = edge_data['edge_type']
 			infect_neighbor_node = lambda: set_node_infected(graph, neighbor_node, True)
 			if edge_type == EdgeType.LOCAL_WIRED and (
-				should_infect_node_with_probability(PRINT_SPOOLER_TRANSMISSION_PROBABILITY) or \
-				should_infect_node_with_probability(WINCC_TRANSMISSION_PROBABILITY) or \
-				should_infect_node_with_probability(SMB_TRANSMISSION_PROBABILITY) or \
+				should_infect_node_with_probability(PRINT_SPOOLER_TRANSMISSION_PROBABILITY) or
+				should_infect_node_with_probability(WINCC_TRANSMISSION_PROBABILITY) or
+				should_infect_node_with_probability(SMB_TRANSMISSION_PROBABILITY) or
 				should_infect_node_with_probability(NETWORK_SHARES_TRANSMISSION_PROBABILITY)
 			):
 				infect_neighbor_node()
