@@ -56,10 +56,15 @@ def create_graph() -> nx.Graph:
 
 			# Get the number of nodes a USB drive should infect in a single network, normalize it, make sure it's positive,
 			# and also make sure it's less than the actual amount of computer nodes in the current network. Then, take a
-			# sample of all the computer nodes in the current network using that number.
-			for computer_node in sample(range(number_of_computer_nodes), min(bound_normal(USB_SHARED_NETWORK_SIZES['NODES_IN_NETWORK']), number_of_computer_nodes)):
-				# Add an edge between the USB node and the computer node with an edge type of USB_SHARED
-				graph.add_edge(usb_node_label, (router_node, computer_node), edge_type=EdgeType.USB_SHARED)
+			# sample of all the computer nodes in the current network using that number. Add an edge between the USB node
+			# and the computer node with an edge type of USB_SHARED.
+			graph.add_edges_from([
+				(usb_node_label, (router_node, computer_node))
+				for computer_node in sample(
+					range(number_of_computer_nodes),
+					min(bound_normal(USB_SHARED_NETWORK_SIZES['NODES_IN_NETWORK']), number_of_computer_nodes)
+				)
+			], edge_type=EdgeType.USB_SHARED)
 
 		# Get the number of disconnected computers a USB drive should infect, normalize it, and make sure it's positive
 		for disconnected_computer_node in range(bound_normal(USB_SHARED_NETWORK_SIZES['NUMBER_OF_DISCONNECTED_COMPUTERS'])):
