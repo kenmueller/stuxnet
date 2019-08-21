@@ -25,28 +25,28 @@ def new_wave(graph: nx.Graph) -> list:
 			)) + (local_network_neighbors(graph, node) if get_node_type(graph, node) == NodeType.COMPUTER else [])
 		):
 			edge_type = edge_data['edge_type']
-			def infect_neighbor_node(actions: list, message: str):
+			def infect_neighbor_node(message: str):
 				set_node_infected(graph, neighbor_node, True)
 				return f'**`{neighbor_node}`** was infected by **`{node}`** using the **{message}**'
 			if edge_type == EdgeType.LOCAL_WIRED:
 				if should_infect_node_with_probability(PRINT_SPOOLER_TRANSMISSION_PROBABILITY):
-					actions.append(infect_neighbor_node(actions, 'print spooler vulnerability'))
+					actions.append(infect_neighbor_node('print spooler vulnerability'))
 				elif should_infect_node_with_probability(WINCC_TRANSMISSION_PROBABILITY):
-					actions.append(infect_neighbor_node(actions, 'WinCC vulnerability'))
+					actions.append(infect_neighbor_node('WinCC vulnerability'))
 				elif should_infect_node_with_probability(SMB_TRANSMISSION_PROBABILITY):
-					actions.append(infect_neighbor_node(actions, 'SMB vulnerability'))
+					actions.append(infect_neighbor_node('SMB vulnerability'))
 				elif should_infect_node_with_probability(NETWORK_SHARES_TRANSMISSION_PROBABILITY):
-					actions.append(infect_neighbor_node(actions, 'network sharing vulnerability'))
+					actions.append(infect_neighbor_node('network sharing vulnerability'))
 			elif edge_type == EdgeType.LOCAL_WIRELESS:
 				if should_infect_node_with_probability(NETWORK_SHARES_TRANSMISSION_PROBABILITY):
-					actions.append(infect_neighbor_node(actions, 'network sharing vulnerability'))
+					actions.append(infect_neighbor_node('network sharing vulnerability'))
 			elif edge_type == EdgeType.USB_SHARED:
 				if should_infect_node_with_probability(USB_TRANSMISSION_PROBABILITY):
-					actions.append(infect_neighbor_node(actions, 'USB vulnerability'))
+					actions.append(infect_neighbor_node('USB vulnerability'))
 				elif should_infect_node_with_probability(LNK_TRANSMISSION_PROBABILITY):
-					actions.append(infect_neighbor_node(actions, 'LNK vulnerability'))
+					actions.append(infect_neighbor_node('LNK vulnerability'))
 				elif should_infect_node_with_probability(AUTORUN_TRANSMISSION_PROBABILITY):
-					actions.append(infect_neighbor_node(actions, 'autorun vulnerability'))
+					actions.append(infect_neighbor_node('autorun vulnerability'))
 			elif edge_type == EdgeType.LOCAL_WIRED or edge_type == EdgeType.LOCAL_WIRELESS:
 				if should_infect_node_with_probability(WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY):
 					graph.node[neighbor_node]['pending_windows_auto_update_infection'] = True
