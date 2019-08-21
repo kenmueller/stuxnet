@@ -45,10 +45,15 @@ if __name__ == '__main__':
 	log = f'# **Initial**\n\n## **{old_infected_attributes[NodeType.USB]}/{total_attributes[NodeType.USB]} USB nodes infected**\n'
 	number_of_waves = INFECTION_DURATION // WAVE_DURATION
 	for wave in range(number_of_waves):
-		log = add_line_to_log(log, f'\n<div id="wave-{wave + 1}"></div>\n\n# **Wave {wave + 1}**\n\n**[Summary](#wave-{wave + 1}-summary){"" if wave == number_of_waves - 1 else f" • [Next](#wave-{wave + 2})"}**\n\n## **Actions**', extra_newline=True)
-		log = new_wave(graph, log)
+		log = add_line_to_log(log, f'\n<div id="wave-{wave + 1}"></div>\n\n# **Wave {wave + 1}**\n\n**[Summary](#wave-{wave + 1}-summary){"" if wave == number_of_waves - 1 else f" • [Next](#wave-{wave + 2})"}**', extra_newline=True)
+		actions = new_wave(graph)
+		if len(actions):
+			log = add_line_to_log(log, '## **Actions**', extra_newline=True)
+			for action in actions:
+				log = add_line_to_log(log, f'1. {action}')
+			log = add_line_to_log(log)
 		new_infected_attributes = node_infected_attributes(graph)
-		log = add_line_to_log(log, f'\n<div id="wave-{wave + 1}-summary"></div>\n\n## **Wave {wave + 1} summary**', extra_newline=True)
+		log = add_line_to_log(log, f'<div id="wave-{wave + 1}-summary"></div>\n\n## **Wave {wave + 1} summary**', extra_newline=True)
 		log = add_line_to_log(log, f'- **Computer nodes infected:** `+{new_infected_attributes[NodeType.COMPUTER] - old_infected_attributes[NodeType.COMPUTER]}`, {new_infected_attributes[NodeType.COMPUTER]}/{total_attributes[NodeType.COMPUTER]} total')
 		log = add_line_to_log(log, f'- **Disconnected computer nodes infected:** `+{new_infected_attributes[NodeType.DISCONNECTED_COMPUTER] - old_infected_attributes[NodeType.DISCONNECTED_COMPUTER]}`, {new_infected_attributes[NodeType.DISCONNECTED_COMPUTER]}/{total_attributes[NodeType.DISCONNECTED_COMPUTER]} total')
 		log = add_line_to_log(log, f'- **USB nodes infected:** `+{new_infected_attributes[NodeType.USB] - old_infected_attributes[NodeType.USB]}`, {new_infected_attributes[NodeType.USB]}/{total_attributes[NodeType.USB]} total')
