@@ -58,7 +58,7 @@ if __name__ == '__main__':
 		log = add_line_to_log(log, f'- **Disconnected computer nodes infected:** `+{new_infected_attributes[NodeType.DISCONNECTED_COMPUTER] - old_infected_attributes[NodeType.DISCONNECTED_COMPUTER]}`, {new_infected_attributes[NodeType.DISCONNECTED_COMPUTER]}/{total_attributes[NodeType.DISCONNECTED_COMPUTER]} total')
 		log = add_line_to_log(log, f'- **USB nodes infected:** `+{new_infected_attributes[NodeType.USB] - old_infected_attributes[NodeType.USB]}`, {new_infected_attributes[NodeType.USB]}/{total_attributes[NodeType.USB]} total')
 		log = add_line_to_log(log, f'- **Overall infected:** `+{new_infected_attributes["total"] - old_infected_attributes["total"]}`, {new_infected_attributes["total"]}/{total_attributes["total"]} total')
-		log = add_line_to_log(log, f'- **Overall healthy:** `{new_infected_attributes["healthy"] - old_infected_attributes["healthy"]}`, {new_infected_attributes["healthy"]}/{total_attributes["total"]} total')
+		log = add_line_to_log(log, f'- **Overall healthy:** `-{abs(new_infected_attributes["healthy"] - old_infected_attributes["healthy"])}`, {new_infected_attributes["healthy"]}/{total_attributes["total"]} total')
 		old_infected_attributes = new_infected_attributes
 	write_log_file(log)
 	draw_graph(graph, get_graph_colors(graph))
