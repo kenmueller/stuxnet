@@ -25,7 +25,7 @@ def new_wave(graph: nx.Graph) -> list:
 			)) + (local_network_neighbors(graph, node) if get_node_type(graph, node) == NodeType.COMPUTER else [])
 		):
 			edge_type = edge_data['edge_type']
-			def infect_neighbor_node(message: str):
+			def infect_neighbor_node(message: str) -> str:
 				set_node_infected(graph, neighbor_node, True)
 				return f'**`{neighbor_node}`** was infected by **`{node}`** using the **{message}**'
 			if edge_type == EdgeType.LOCAL_WIRED:

@@ -14,7 +14,7 @@ def draw_graph(graph: nx.Graph, colors: list = None, **kwargs):
 	nx.draw(graph, node_color=colors, with_labels=True)
 	plt.show(**kwargs)
 
-def get_graph_colors(graph: nx.Graph):
+def get_graph_colors(graph: nx.Graph) -> list:
 	return [INFECTED_NODE_COLOR if is_node_infected(graph, node) else NOT_INFECTED_NODE_COLOR for node in graph.nodes]
 
 def node_total_attributes(graph: nx.Graph) -> dict:
