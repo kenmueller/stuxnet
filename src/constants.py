@@ -62,7 +62,7 @@ WAVE_DURATION = 8640000000
 # The number of milliseconds until stuxnet self destructs
 INFECTION_DURATION = 94608000000
 
-# The number of computers stuxnet can infect before it turns itself off
+# The number of computers a USB can infect before it self destructs
 INFECTION_LIMIT = 3
 
 # Number of initial USB nodes infected. Should be less than the number of USB sharing networks

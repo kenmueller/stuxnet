@@ -29,6 +29,10 @@ def add_computer_nodes(graph: nx.Graph, edge_type: EdgeType, router_node: int):
 	for computer_node in network_size_range:
 		set_node_type(graph, (router_node, computer_node), NodeType.COMPUTER)
 
+def set_default_infection_limit(graph: nx.Graph, usb_node: str):
+	"""Sets the default infection limit for a USB node"""
+	graph.node[usb_node]['infection_limit'] = INFECTION_LIMIT
+
 def create_graph() -> nx.Graph:
 	"""Creates a graph for Stuxnet to infect"""
 	# Create an empty graph
@@ -93,6 +97,9 @@ def create_graph() -> nx.Graph:
 
 		# Set the node type for the USB node
 		set_node_type(graph, usb_node_label, NodeType.USB)
+
+		# Set the default infection limit for the USB node
+		set_default_infection_limit(graph, usb_node_label)
 
 	# Get a sample of all the USB nodes, and infect all the nodes that should be initially infected
 	for usb_node in sample(range(NUMBER_OF_USB_SHARING_NETWORKS), NUMBER_OF_INITIAL_USB_NODES_INFECTED):

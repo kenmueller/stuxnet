@@ -1,7 +1,7 @@
 import networkx as nx
 from random import random
 from constants import *
-from node import is_node_infected, set_node_infected, get_node_type, local_network_neighbors
+from node import is_node_infected, set_node_infected, get_node_type, local_network_neighbors, get_usb_node_infection_limit, decrement_usb_node_infection_limit
 from edge_type import EdgeType
 from node_type import NodeType
 from log import add_line_to_log
@@ -17,6 +17,9 @@ def new_wave(graph: nx.Graph) -> list:
 	actions = []
 	pending_windows_auto_update_infection_nodes = list(filter(lambda node: graph.node[node].get('pending_windows_auto_update_infection'), graph.node))
 	for node in filter(lambda node: is_node_infected(graph, node), graph.nodes):
+		is_usb_node = get_node_type(graph, node) == NodeType.USB
+		if is_usb_node and get_usb_node_infection_limit(graph, node) <= 0:
+			continue
 		for neighbor_node, edge_data in filter(
 			lambda adjacency: not is_node_infected(graph, adjacency[0]),
 			list(filter(
@@ -41,12 +44,18 @@ def new_wave(graph: nx.Graph) -> list:
 				if should_infect_node_with_probability(NETWORK_SHARES_TRANSMISSION_PROBABILITY):
 					actions.append(infect_neighbor_node('network sharing vulnerability'))
 			elif edge_type == EdgeType.USB_SHARED:
+				did_infect_neighbor_node = False
 				if should_infect_node_with_probability(USB_TRANSMISSION_PROBABILITY):
 					actions.append(infect_neighbor_node('USB vulnerability'))
+					did_infect_neighbor_node = True
 				elif should_infect_node_with_probability(LNK_TRANSMISSION_PROBABILITY):
 					actions.append(infect_neighbor_node('LNK vulnerability'))
+					did_infect_neighbor_node = True
 				elif should_infect_node_with_probability(AUTORUN_TRANSMISSION_PROBABILITY):
 					actions.append(infect_neighbor_node('autorun vulnerability'))
+					did_infect_neighbor_node = True
+				if did_infect_neighbor_node and is_usb_node:
+					decrement_usb_node_infection_limit(graph, node)
 			elif edge_type == EdgeType.LOCAL_WIRED or edge_type == EdgeType.LOCAL_WIRELESS:
 				if should_infect_node_with_probability(WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY):
 					graph.node[neighbor_node]['pending_windows_auto_update_infection'] = True
