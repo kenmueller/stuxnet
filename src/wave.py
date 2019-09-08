@@ -17,7 +17,8 @@ def new_wave(graph: nx.Graph) -> list:
 	actions = []
 	pending_windows_auto_update_infection_nodes = list(filter(lambda node: graph.node[node].get('pending_windows_auto_update_infection'), graph.node))
 	for node in filter(lambda node: is_node_infected(graph, node), graph.nodes):
-		is_usb_node = get_node_type(graph, node) == NodeType.USB
+		node_type = get_node_type(graph, node)
+		is_usb_node = node_type == NodeType.USB
 		if is_usb_node and get_usb_node_infection_limit(graph, node) <= 0:
 			continue
 		for neighbor_node, edge_data in filter(
@@ -25,7 +26,7 @@ def new_wave(graph: nx.Graph) -> list:
 			list(filter(
 				lambda adjacency: node_type_is_not_router_or_main(graph, adjacency[0]),
 				graph.adj[node].items()
-			)) + (local_network_neighbors(graph, node) if get_node_type(graph, node) == NodeType.COMPUTER else [])
+			)) + (local_network_neighbors(graph, node) if node_type == NodeType.COMPUTER else [])
 		):
 			edge_type = edge_data['edge_type']
 			def infect_neighbor_node(message: str) -> str:

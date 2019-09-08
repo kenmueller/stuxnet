@@ -7,3 +7,4 @@ class NodeType(Enum):
 	COMPUTER = auto()
 	DISCONNECTED_COMPUTER = auto()
 	USB = auto()
+	PLC = auto()

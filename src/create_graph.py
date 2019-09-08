@@ -1,6 +1,6 @@
 import networkx as nx
 from numpy.random import normal
-from random import sample
+from random import sample, randrange
 from constants import *
 from edge_type import EdgeType
 from node_type import NodeType
@@ -32,6 +32,32 @@ def add_computer_nodes(graph: nx.Graph, edge_type: EdgeType, router_node: int):
 def set_default_infection_limit(graph: nx.Graph, usb_node: str):
 	"""Sets the default infection limit for a USB node"""
 	graph.node[usb_node]['infection_limit'] = INFECTION_LIMIT
+
+def get_usb_nodes(graph: nx.Graph, node_range: list) -> list:
+	"""Gets all the USB nodes in a graph"""
+	return [f'usb-{usb_node}' for usb_node in node_range]
+
+def get_usb_nodes_to_connect_to_plc_nodes(usb_nodes: list, node_range: list) -> list:
+	"""Gets all the USB nodes that can connect to PLCs from a list"""
+	return [usb_nodes[randrange(0, NUMBER_OF_LOCAL_NETWORKS)] for _ in node_range]
+
+def add_plc_nodes(graph: nx.Graph):
+	"""Adds all the PLC nodes in a graph"""
+	# Get the range of USB nodes
+	usb_node_range = range(NUMBER_OF_USB_SHARING_NETWORKS)
+
+	# Get all the valid USB node by reordering them
+	valid_usb_nodes = get_usb_nodes_to_connect_to_plc_nodes(get_usb_nodes(graph, usb_node_range), usb_node_range)
+
+	# Get the range of PLC nodes
+	plc_node_range = range(NUMBER_OF_PLC_NODES)
+
+	# Add all the edges between a USB node and a new PLC node
+	graph.add_edges_from([(valid_usb_nodes[i], f'plc-{i}') for i in plc_node_range], edge_type=EdgeType.USB_TO_PLC)
+
+	# Set the node type for all the new PLC nodes
+	for i in plc_node_range:
+		set_node_type(graph, f'plc-{i}', NodeType.PLC)
 
 def create_graph() -> nx.Graph:
 	"""Creates a graph for Stuxnet to infect"""
@@ -112,5 +138,8 @@ def create_graph() -> nx.Graph:
 
 	# Set the node type for the main node
 	set_node_type(graph, NUMBER_OF_LOCAL_NETWORKS, NodeType.MAIN)
+
+	# Add PLCs to the graph
+	add_plc_nodes(graph)
 
 	return graph

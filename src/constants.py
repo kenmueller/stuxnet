@@ -22,6 +22,9 @@ NUMBER_OF_LOCAL_WIRELESS_NETWORKS = 20
 # Total number of USB sharing networks
 NUMBER_OF_USB_SHARING_NETWORKS = 30
 
+# Total number of PLCs
+NUMBER_OF_PLC_NODES = 10
+
 # Transmission probabilities
 
 # USB edge type
