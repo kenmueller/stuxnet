@@ -23,6 +23,7 @@ def node_total_attributes(graph: nx.Graph) -> dict:
 		NodeType.COMPUTER: len(filter_for_node_type(NodeType.COMPUTER)),
 		NodeType.DISCONNECTED_COMPUTER: len(filter_for_node_type(NodeType.DISCONNECTED_COMPUTER)),
 		NodeType.USB: len(filter_for_node_type(NodeType.USB)),
+		NodeType.PLC: len(filter_for_node_type(NodeType.PLC)),
 		'total': len(graph.node)
 	}
 
@@ -34,6 +35,7 @@ def node_infected_attributes(graph: nx.Graph) -> dict:
 		NodeType.COMPUTER: len(filter_for_node_type(NodeType.COMPUTER)),
 		NodeType.DISCONNECTED_COMPUTER: len(filter_for_node_type(NodeType.DISCONNECTED_COMPUTER)),
 		NodeType.USB: len(filter_for_node_type(NodeType.USB)),
+		NodeType.PLC: len(filter_for_node_type(NodeType.PLC)),
 		'total': number_of_infected_nodes,
 		'healthy': len(graph.node) - number_of_infected_nodes
 	}
@@ -57,6 +59,7 @@ if __name__ == '__main__':
 		log = add_line_to_log(log, f'- **Computer nodes infected:** `+{new_infected_attributes[NodeType.COMPUTER] - old_infected_attributes[NodeType.COMPUTER]}`, {new_infected_attributes[NodeType.COMPUTER]}/{total_attributes[NodeType.COMPUTER]} total')
 		log = add_line_to_log(log, f'- **Disconnected computer nodes infected:** `+{new_infected_attributes[NodeType.DISCONNECTED_COMPUTER] - old_infected_attributes[NodeType.DISCONNECTED_COMPUTER]}`, {new_infected_attributes[NodeType.DISCONNECTED_COMPUTER]}/{total_attributes[NodeType.DISCONNECTED_COMPUTER]} total')
 		log = add_line_to_log(log, f'- **USB nodes infected:** `+{new_infected_attributes[NodeType.USB] - old_infected_attributes[NodeType.USB]}`, {new_infected_attributes[NodeType.USB]}/{total_attributes[NodeType.USB]} total')
+		log = add_line_to_log(log, f'- **PLC nodes infected:** `+{new_infected_attributes[NodeType.PLC] - old_infected_attributes[NodeType.PLC]}`, {new_infected_attributes[NodeType.PLC]}/{total_attributes[NodeType.PLC]} total')
 		log = add_line_to_log(log, f'- **Overall infected:** `+{new_infected_attributes["total"] - old_infected_attributes["total"]}`, {new_infected_attributes["total"]}/{total_attributes["total"]} total')
 		log = add_line_to_log(log, f'- **Overall healthy:** `-{abs(new_infected_attributes["healthy"] - old_infected_attributes["healthy"])}`, {new_infected_attributes["healthy"]}/{total_attributes["total"]} total')
 		old_infected_attributes = new_infected_attributes
