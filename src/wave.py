@@ -44,7 +44,7 @@ def new_wave(graph: nx.Graph) -> list:
 			elif edge_type == EdgeType.LOCAL_WIRELESS:
 				if should_infect_node_with_probability(NETWORK_SHARES_TRANSMISSION_PROBABILITY):
 					actions.append(infect_neighbor_node('network sharing vulnerability'))
-			elif edge_type == EdgeType.USB_SHARED:
+			elif edge_type == EdgeType.USB_SHARED or edge_type == EdgeType.USB_TO_PLC:
 				did_infect_neighbor_node = False
 				if should_infect_node_with_probability(USB_TRANSMISSION_PROBABILITY):
 					actions.append(infect_neighbor_node('USB vulnerability'))
