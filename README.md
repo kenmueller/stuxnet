@@ -2,6 +2,12 @@
 
 **A Stuxnet clone made in Python for a research project**
 
+## **`constants.py`**
+
+To draw the graph at the end, set **`SHOULD_DRAW_GRAPH = True`** in **`constants.py`**.
+
+You can also edit all of the virus's transmission probabilities and environment in there.
+
 ## **Initialization**
 
 ```bash
