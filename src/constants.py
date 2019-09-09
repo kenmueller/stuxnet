@@ -14,53 +14,53 @@ NETWORK_SIZES = {
 }
 
 # Total number of local wired networks
-NUMBER_OF_LOCAL_WIRED_NETWORKS = 10
+NUMBER_OF_LOCAL_WIRED_NETWORKS = 500
 
 # Total number of local wireless networks
-NUMBER_OF_LOCAL_WIRELESS_NETWORKS = 20
+NUMBER_OF_LOCAL_WIRELESS_NETWORKS = 1000
 
 # Total number of USB sharing networks
-NUMBER_OF_USB_SHARING_NETWORKS = 30
+NUMBER_OF_USB_SHARING_NETWORKS = 100
 
 # Total number of PLCs
-NUMBER_OF_PLC_NODES = 10
+NUMBER_OF_PLC_NODES = 15
 
 # Transmission probabilities
 
 # USB edge type
 
 # The probability, for each wave, that an infected computer will infect its neighbor via USB
-USB_TRANSMISSION_PROBABILITY = 0.1
+USB_TRANSMISSION_PROBABILITY = 0.01
 
 # The probability, for each wave, that an infected computer will infect its neighbor via LNK vulnerability
-LNK_TRANSMISSION_PROBABILITY = 0.5
+LNK_TRANSMISSION_PROBABILITY = 0.1
 
 # The probability, for each wave, that an infected computer will infect its neighbor via autorun vulnerability
-AUTORUN_TRANSMISSION_PROBABILITY = 0.5
+AUTORUN_TRANSMISSION_PROBABILITY = 0.1
 
 # Wired local network edge type
 
 # The probability, for each wave, that an infected computer will infect its neighbor via print spooler vulnerability
-PRINT_SPOOLER_TRANSMISSION_PROBABILITY = 0.5
+PRINT_SPOOLER_TRANSMISSION_PROBABILITY = 0.1
 
 # The probability, for each wave, that an infected computer will infect its neighbor via WinCC
-WINCC_TRANSMISSION_PROBABILITY = 0.5
+WINCC_TRANSMISSION_PROBABILITY = 0.1
 
 # The probability, for each wave, that an infected computer will infect its neighbor via SMB
-SMB_TRANSMISSION_PROBABILITY = 0.5
+SMB_TRANSMISSION_PROBABILITY = 0.1
 
 # Wired and wireless local network edge type
 
 # The probability, for each wave, that an infected computer will infect its neighbor via a network share
-NETWORK_SHARES_TRANSMISSION_PROBABILITY = 0.5
+NETWORK_SHARES_TRANSMISSION_PROBABILITY = 0.1
 
 # The probability, for each wave, that a given computer will get infected from a windows auto update
-WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY = 0.5
+WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY = 0.1
 
 # Limits
 
 # The number of milliseconds a wave is
-WAVE_DURATION = 8640000000
+WAVE_DURATION = 864e7
 
 # The number of milliseconds until stuxnet self destructs
 INFECTION_DURATION = 94608000000
@@ -70,3 +70,6 @@ INFECTION_LIMIT = 3
 
 # Number of initial USB nodes infected. Should be less than the number of USB sharing networks
 NUMBER_OF_INITIAL_USB_NODES_INFECTED = 10
+
+# Should draw the graph at the end
+SHOULD_DRAW_GRAPH = False

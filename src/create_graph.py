@@ -39,7 +39,7 @@ def get_usb_nodes(graph: nx.Graph, node_range: list) -> list:
 
 def get_usb_nodes_to_connect_to_plc_nodes(usb_nodes: list, node_range: list) -> list:
 	"""Gets all the USB nodes that can connect to PLCs from a list"""
-	return [usb_nodes[randrange(0, NUMBER_OF_LOCAL_NETWORKS)] for _ in node_range]
+	return [usb_nodes[randrange(0, NUMBER_OF_USB_SHARING_NETWORKS)] for _ in node_range]
 
 def add_plc_nodes(graph: nx.Graph):
 	"""Adds all the PLC nodes in a graph"""

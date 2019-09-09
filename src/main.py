@@ -45,7 +45,7 @@ if __name__ == '__main__':
 	old_infected_attributes = node_infected_attributes(graph)
 	total_attributes = node_total_attributes(graph)
 	log = f'# **Initial**\n\n## **{old_infected_attributes[NodeType.USB]}/{total_attributes[NodeType.USB]} USB nodes infected**\n'
-	number_of_waves = INFECTION_DURATION // WAVE_DURATION
+	number_of_waves = int(INFECTION_DURATION // WAVE_DURATION)
 	for wave in range(number_of_waves):
 		log = add_line_to_log(log, f'\n<div id="wave-{wave + 1}"></div>\n\n# **Wave {wave + 1}**\n\n**[Summary](#wave-{wave + 1}-summary){"" if wave == number_of_waves - 1 else f" • [Next](#wave-{wave + 2})"}**', extra_newline=True)
 		actions = new_wave(graph)
@@ -64,4 +64,5 @@ if __name__ == '__main__':
 		log = add_line_to_log(log, f'- **Overall healthy:** `-{abs(new_infected_attributes["healthy"] - old_infected_attributes["healthy"])}`, {new_infected_attributes["healthy"]}/{total_attributes["total"]} total')
 		old_infected_attributes = new_infected_attributes
 	write_log_file(log)
-	draw_graph(graph, get_graph_colors(graph))
+	if SHOULD_DRAW_GRAPH:
+		draw_graph(graph, get_graph_colors(graph))
