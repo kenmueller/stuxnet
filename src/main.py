@@ -47,6 +47,7 @@ if __name__ == '__main__':
 	log = f'# **Initial**\n\n## **{old_infected_attributes[NodeType.USB]}/{total_attributes[NodeType.USB]} USB nodes infected**\n'
 	number_of_waves = int(INFECTION_DURATION // WAVE_DURATION)
 	for wave in range(number_of_waves):
+		print(f'Wave {wave + 1}/{number_of_waves}')
 		log = add_line_to_log(log, f'\n<div id="wave-{wave + 1}"></div>\n\n# **Wave {wave + 1}**\n\n**[Summary](#wave-{wave + 1}-summary){"" if wave == number_of_waves - 1 else f" • [Next](#wave-{wave + 2})"}**', extra_newline=True)
 		actions = new_wave(graph)
 		if len(actions):

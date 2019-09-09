@@ -4,26 +4,35 @@ from edge_type import EdgeType
 
 # Network sizes for edge types
 NETWORK_SIZES = {
-	EdgeType.LOCAL_WIRED: 6.5,
-	EdgeType.LOCAL_WIRELESS: 8.1,
+	# How many computers there are inside of a local wired network
+	EdgeType.LOCAL_WIRED: 10,
+
+	# How many computers there are inside of a local wireless network
+	EdgeType.LOCAL_WIRELESS: 15,
+
 	EdgeType.USB_SHARED: {
-		'NUMBER_OF_NETWORKS': 2,
-		'NODES_IN_NETWORK': 2,
+		# How many different networks a single USB drive should connect to
+		'NUMBER_OF_NETWORKS': 3,
+
+		# How many nodes in each network a single USB drive should connect to
+		'NODES_IN_NETWORK': 4,
+
+		# How many disconnected computers a single USB drive should connect to
 		'NUMBER_OF_DISCONNECTED_COMPUTERS': 1
 	}
 }
 
 # Total number of local wired networks
-NUMBER_OF_LOCAL_WIRED_NETWORKS = 500
+NUMBER_OF_LOCAL_WIRED_NETWORKS = 3000
 
 # Total number of local wireless networks
-NUMBER_OF_LOCAL_WIRELESS_NETWORKS = 1000
+NUMBER_OF_LOCAL_WIRELESS_NETWORKS = 5000
 
 # Total number of USB sharing networks
-NUMBER_OF_USB_SHARING_NETWORKS = 100
+NUMBER_OF_USB_SHARING_NETWORKS = 400
 
 # Total number of PLCs
-NUMBER_OF_PLC_NODES = 15
+NUMBER_OF_PLC_NODES = 10000
 
 # Transmission probabilities
 
@@ -60,7 +69,7 @@ WINDOWS_AUTO_UPDATE_TRANSMISSION_PROBABILITY = 0.1
 # Limits
 
 # The number of milliseconds a wave is
-WAVE_DURATION = 864e7
+WAVE_DURATION = 86400000
 
 # The number of milliseconds until stuxnet self destructs
 INFECTION_DURATION = 94608000000
